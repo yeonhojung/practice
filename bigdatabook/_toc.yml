@@ -1,0 +1,183 @@
+# Table of contents
+# Learn more at https://jupyterbook.org/customize/toc.html
+format: jb-book
+root: intro
+title: 빅데이터 개론
+options:
+  numbered: true
+
+parts:
+#########################################
+  - caption: Part 0. 데이터 과학 입문
+    numbered: True 
+    chapters:
+    - file: chapters/01/intro
+      title: 데이터 과학이란?
+      sections:
+      - file: chapters/01/intro-course
+        title: 서론
+      - file: chapters/01/intro-program
+        title: 데이터
+      - file: chapters/01/intro-stat
+        title: 파이썬
+
+    - file: chapters/02/intro
+      title: 파이썬의 기초
+      sections:
+      - file: chapters/02/basic-expression
+        title: 표현식과 변수
+      - file: chapters/02/data-processing-intro
+        title: 자료의 형식
+      - file: chapters/02/data-processing-train-passenger
+        title: 사례
+
+#########################################
+  - caption: Part 1. 파이썬을 이용한 데이터 다루기 
+    numbered: True 
+    chapters:
+    - file: chapters/04/intro
+      title: 데이터프레임
+      sections:
+      - file: chapters/04/dataframe-intro
+        title: 데이터프레임의 정의와 구성요소
+      - file: chapters/04/dataframe
+        title: Pandas 라이브러리
+      - file: chapters/04/dataframe-change
+        title: 데이터프레임의 정리
+      - file: chapters/04/dataframe-summary
+        title: 데이터프레임의 요약
+      - file: chapters/04/dataframe-merge
+        title: 데이터프레임의 결합
+    - file: chapters/05/intro
+      title: 자료의 시각화
+      sections:
+      - file: chapters/05/data-intro
+        title: 자료의 종류
+      - file: chapters/05/data_distribution
+        title: 범주형 자료의 분포
+      - file: chapters/05/data_probability
+        title: 연속형 자료의 분포
+    - file: chapters/06/intro
+      title: 데이터 요약하기
+      sections:
+      - file: chapters/06/sample
+        title: 중심위치
+      - file: chapters/06/estimator
+        title: 산포
+      - file: chapters/06/bootstrap
+        title: Percentile and quantile
+    - file: chapters/07/intro
+      title: 관계 이해하기
+      sections:
+      - file: chapters/07/decision
+        title: 관계의 시각화
+      - file: chapters/07/pvalue
+        title: 관계의 모형화
+
+#########################################
+  - caption: Part 2. 데이터를 이용한 추론
+    numbered: True 
+    chapters:
+    - file: chapters/08/intro
+      title: 확률과 확률분포
+      sections:
+      - file: chapters/08/validation
+        title: 확률
+      - file: chapters/08/regression
+        title: 확률분포
+
+    - file: chapters/09/intro
+      title: 표본과 불확실성
+      sections:
+      - file: chapters/09/correlation
+        title: 불확실성의 원천
+      - file: chapters/09/classification
+        title: 통계량의 경험적 분포
+
+    - file: chapters/10/intro
+      title: 가설검정
+      sections:
+      - file: chapters/10/classification
+        title: 데이터를 이용한 yes/no question에 대한 통계적 결정과정
+        sections:
+        - file: chapters/10/correlation
+          title: 가설검정
+        - file: chapters/10/regression
+          title: 통계량 선택
+        - file: chapters/10/relation-intro
+          title: 시뮬레이션 
+
+      - file: chapters/11/classification
+        title: 두 범주형 변수의 분포가 동일한지에 대한 검정 
+        sections:
+        - file: chapters/11/correlation
+          title: 가설 검정
+        - file: chapters/11/regression
+          title: 통계량 선택
+        - file: chapters/11/relation-intro
+          title: 시뮬레이션      
+        - file: chapters/11/validation
+          title: 데이터 분석의 결론
+
+      - file: chapters/12/classification
+        title: 오류의 확률 - P-value 계산
+
+
+    - file: chapters/12/intro
+      title: 두 표본의 비교
+      sections:
+      - file: chapters/12/relation-intro
+        title: A / B 테스트
+        # sections:
+        # - file: chapters/02/intro
+        #   title: 가설 설정
+        # - file: chapters/02/intro
+        #   title: 통계량 선택 - 두 표본평균의 차이
+        # - file: chapters/02/intro
+        #   title: 시뮬레이션 - 통계량의 경험적 분포와 관측된 통계량 값의 비교
+        # - file: chapters/02/intro
+        #   title: 검정의 결론
+        # - file: chapters/08/correlation
+        #   title: 상관관계와 인과관계
+        # - file: chapters/02/intro
+        #   title: 무작위 대조 실험
+        # - file: chapters/02/intro
+        #   title: A / B 테스트
+      - file: chapters/12/correlation
+        title: Permutation test
+      - file: chapters/12/validation
+        title: P-value 계산
+
+    - file: chapters/13/intro
+      title: 추정과 불확실성
+      sections:
+      - file: chapters/13/classification
+        title: 붓스트랩
+      - file: chapters/13/correlation
+        title: 신뢰구간
+      - file: chapters/13/regression
+        title: 평균의 불확실성          
+
+#########################################
+  - caption: Part 4. 예측
+    numbered: True 
+    chapters:
+    - file: chapters/14/intro
+      title: 회귀모형
+      sections:
+      - file: chapters/14/validation
+        title: Nearest neighbors
+      - file: chapters/14/regression
+        title: 선형회귀모형을 이용한 예측 
+      - file: chapters/14/correlation
+        title: Training and testing
+
+    - file: chapters/15/intro
+      title: 분류
+      sections:
+      - file: chapters/15/validation
+        title: Nearest neighbors
+      - file: chapters/15/regression
+        title: 분류와 확률
+      - file: chapters/15/correlation
+        title: 확률모형을 이용한 분류 - 로지스틱 모형 

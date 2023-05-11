@@ -1,0 +1,1462 @@
+
+
+<!DOCTYPE html>
+
+
+<html >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="generator" content="Docutils 0.17.1: http://docutils.sourceforge.net/" />
+
+    <title>4.2. 자료의 분포 &#8212; 빅데이터 개론</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "light";
+  </script>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/bootstrap.css?digest=e353d410970836974a52" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=e353d410970836974a52" rel="stylesheet" />
+
+  
+  <link href="../../_static/vendor/fontawesome/6.1.2/css/all.min.css?digest=e353d410970836974a52" rel="stylesheet" />
+  <link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-solid-900.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-brands-400.woff2" />
+<link rel="preload" as="font" type="font/woff2" crossorigin href="../../_static/vendor/fontawesome/6.1.2/webfonts/fa-regular-400.woff2" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css" />
+    <link rel="stylesheet" href="../../_static/styles/sphinx-book-theme.css?digest=14f4ca6b54d191a8c7657f6c759bf11a5fb86285" type="text/css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.4510f1fc1dee50b3e5859aac5469c37c29e427902b24a333a5f9fcb2f0b3ac41.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/design-style.4045f2051d55cab465a707391d5b2007.min.css" />
+  
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52" />
+
+    <script data-url_root="../../" id="documentation_options" src="../../_static/documentation_options.js"></script>
+    <script src="../../_static/jquery.js"></script>
+    <script src="../../_static/underscore.js"></script>
+    <script src="../../_static/doctools.js"></script>
+    <script src="../../_static/clipboard.min.js"></script>
+    <script src="../../_static/copybutton.js"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?digest=5a5c038af52cf7bc1a1ec88eea08e6366ee68824"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"
+const thebe_selector = ".thebe,.cell"
+const thebe_selector_input = "pre"
+const thebe_selector_output = ".output, .cell_output"
+</script>
+    <script async="async" src="../../_static/sphinx-thebe.js"></script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'chapters/05/data_distribution';</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="next" title="4.3. 확률의 기초" href="data_probability.html" />
+    <link rel="prev" title="4.1. 분포와 확률" href="data-intro.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="None"/>
+  </head>
+  
+  
+  <body data-bs-spy="scroll" data-bs-target=".bd-toc-nav" data-offset="180" data-bs-root-margin="0px 0px -60%" data-default-mode="">
+
+  
+  
+  <a class="skip-link" href="#main-content">Skip to main content</a>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__primary"
+          id="__primary"/>
+  <label class="overlay overlay-primary" for="__primary"></label>
+  
+  <input type="checkbox"
+          class="sidebar-toggle"
+          name="__secondary"
+          id="__secondary"/>
+  <label class="overlay overlay-secondary" for="__secondary"></label>
+  
+  <div class="search-button__wrapper">
+    <div class="search-button__overlay"></div>
+    <div class="search-button__search-container">
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         id="search-input"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form></div>
+  </div>
+  
+    <nav class="bd-header navbar navbar-expand-lg bd-navbar">
+    </nav>
+  
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      <div class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+    
+    
+      
+    
+    
+    <img src="../../_static/logo.png" class="logo__image only-light" alt="Logo image"/>
+    <script>document.write(`<img src="../../_static/logo.png" class="logo__image only-dark" alt="Logo image"/>`);</script>
+  
+  
+</a></div>
+        <div class="sidebar-primary-item"><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    빅데이터 개론 2
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 0. 데이터 과학 입문</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../01/intro.html">1. 데이터 과학이란?</a><input class="toctree-checkbox" id="toctree-checkbox-1" name="toctree-checkbox-1" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-1"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../01/intro-course.html">1.1. 서론</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01/intro-program.html">1.2. 데이터</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../01/intro-stat.html">1.3. 파이썬</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../02/intro.html">2. 파이썬의 기초</a><input class="toctree-checkbox" id="toctree-checkbox-2" name="toctree-checkbox-2" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-2"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../02/basic-expression.html">2.1. 표현식과 변수</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/data-processing-intro.html">2.2. 자료의 형식</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../02/data-processing-train-passenger.html">2.3. 사례</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 1. 파이썬을 이용한 데이터 다루기</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../04/intro.html">3. 데이터프레임</a><input class="toctree-checkbox" id="toctree-checkbox-3" name="toctree-checkbox-3" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-3"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../04/dataframe-intro.html">3.1. 데이터프레임의 정의와 구성요소</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../04/dataframe.html">3.2. Pandas 라이브러리</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../04/dataframe-change.html">3.3. 데이터프레임의 정리</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../04/dataframe-summary.html">3.4. 데이터프레임의 요약</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../04/dataframe-merge.html">3.5. 데이터프레임의 결합</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current active has-children"><a class="reference internal" href="intro.html">4. 자료의 시각화</a><input checked="" class="toctree-checkbox" id="toctree-checkbox-4" name="toctree-checkbox-4" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-4"><i class="fa-solid fa-chevron-down"></i></label><ul class="current">
+<li class="toctree-l2"><a class="reference internal" href="data-intro.html">4.1. 자료의 종류</a></li>
+<li class="toctree-l2 current active"><a class="current reference internal" href="#">4.2. 범주형 자료의 분포</a></li>
+<li class="toctree-l2"><a class="reference internal" href="data_probability.html">4.3. 연속형 자료의 분포</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../06/intro.html">5. 데이터 요약하기</a><input class="toctree-checkbox" id="toctree-checkbox-5" name="toctree-checkbox-5" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-5"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../06/sample.html">5.1. 중심위치</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06/estimator.html">5.2. 산포</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../06/bootstrap.html">5.3. Percentile and quantile</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../07/intro.html">6. 관계 이해하기</a><input class="toctree-checkbox" id="toctree-checkbox-6" name="toctree-checkbox-6" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-6"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../07/decision.html">6.1. 관계의 시각화</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../07/pvalue.html">6.2. 관계의 모형화</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 2. 데이터를 이용한 추론</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../08/intro.html">7. 확률과 확률분포</a><input class="toctree-checkbox" id="toctree-checkbox-7" name="toctree-checkbox-7" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-7"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../08/validation.html">7.1. 확률</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../08/regression.html">7.2. 확률분포</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../09/intro.html">8. 표본과 불확실성</a><input class="toctree-checkbox" id="toctree-checkbox-8" name="toctree-checkbox-8" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-8"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../09/correlation.html">8.1. 불확실성의 원천</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../09/classification.html">8.2. 통계량의 경험적 분포</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../10/intro.html">9. 가설검정</a><input class="toctree-checkbox" id="toctree-checkbox-9" name="toctree-checkbox-9" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-9"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../10/classification.html">9.1. 데이터를 이용한 yes/no question에 대한 통계적 결정과정</a><input class="toctree-checkbox" id="toctree-checkbox-10" name="toctree-checkbox-10" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-10"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../10/correlation.html">9.1.5. 가설검정</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10/regression.html">9.1.6. 통계량 선택</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../10/relation-intro.html">9.1.7. 시뮬레이션</a></li>
+</ul>
+</li>
+<li class="toctree-l2 has-children"><a class="reference internal" href="../11/classification.html">9.2. 두 범주형 변수의 분포가 동일한지에 대한 검정</a><input class="toctree-checkbox" id="toctree-checkbox-11" name="toctree-checkbox-11" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-11"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l3"><a class="reference internal" href="../11/correlation.html">9.2.5. 가설 검정</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11/regression.html">9.2.6. 통계량 선택</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11/relation-intro.html">9.2.7. 시뮬레이션</a></li>
+<li class="toctree-l3"><a class="reference internal" href="../11/validation.html">9.2.8. 데이터 분석의 결론</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="../12/classification.html">9.3. 오류의 확률 - P-value 계산</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../12/intro.html">10. 두 표본의 비교</a><input class="toctree-checkbox" id="toctree-checkbox-12" name="toctree-checkbox-12" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-12"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../12/relation-intro.html">10.1. A / B 테스트</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../12/correlation.html">10.2. Permutation test</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../12/validation.html">10.3. P-value 계산</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../13/intro.html">11. 추정과 불확실성</a><input class="toctree-checkbox" id="toctree-checkbox-13" name="toctree-checkbox-13" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-13"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../13/classification.html">11.1. 붓스트랩</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../13/correlation.html">11.2. 신뢰구간</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../13/regression.html">11.3. 평균의 불확실성</a></li>
+</ul>
+</li>
+</ul>
+<p aria-level="2" class="caption" role="heading"><span class="caption-text">Part 4. 예측</span></p>
+<ul class="nav bd-sidenav">
+<li class="toctree-l1 has-children"><a class="reference internal" href="../14/intro.html">12. 회귀모형</a><input class="toctree-checkbox" id="toctree-checkbox-14" name="toctree-checkbox-14" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-14"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../14/validation.html">12.1. Nearest neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../14/regression.html">12.2. 선형회귀모형을 이용한 예측</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../14/correlation.html">12.3. Training and testing</a></li>
+</ul>
+</li>
+<li class="toctree-l1 has-children"><a class="reference internal" href="../15/intro.html">13. 분류</a><input class="toctree-checkbox" id="toctree-checkbox-15" name="toctree-checkbox-15" type="checkbox"/><label class="toctree-toggle" for="toctree-checkbox-15"><i class="fa-solid fa-chevron-down"></i></label><ul>
+<li class="toctree-l2"><a class="reference internal" href="../15/validation.html">13.1. Nearest neighbors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../15/regression.html">13.2. 분류와 확률</a></li>
+<li class="toctree-l2"><a class="reference internal" href="../15/correlation.html">13.3. 확률모형을 이용한 분류 - 로지스틱 모형</a></li>
+</ul>
+</li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+  </div>
+  
+  <div id="rtd-footer-container"></div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><label class="sidebar-toggle primary-toggle btn btn-sm" for="__primary" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</label></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/UOS-Bigdata/bigdatabook/blob/master/chapters/05/data_distribution.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch onColab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+  </ul>
+</div>
+
+
+
+<a href="https://github.com/UOS-Bigdata/bigdatabook" target="_blank"
+   class="btn btn-sm btn-source-repository-button"
+   title="Source repository"
+   data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fab fa-github"></i>
+  </span>
+
+</a>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/chapters/05/data_distribution.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+<script>
+document.write(`
+  <button class="theme-switch-button btn btn-sm btn-outline-primary navbar-btn rounded-circle" title="light/dark" aria-label="light/dark" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="theme-switch" data-mode="light"><i class="fa-solid fa-sun"></i></span>
+    <span class="theme-switch" data-mode="dark"><i class="fa-solid fa-moon"></i></span>
+    <span class="theme-switch" data-mode="auto"><i class="fa-solid fa-circle-half-stroke"></i></span>
+  </button>
+`);
+</script>
+
+<script>
+document.write(`
+  <button class="btn btn-sm navbar-btn search-button search-button__button" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass"></i>
+  </button>
+`);
+</script>
+<label class="sidebar-toggle secondary-toggle btn btn-sm" for="__secondary"title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</label>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>자료의 분포</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.2.1. 체력측정 자료</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2.2. 자료의 종류</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.2.3. 범주형자료의 분포</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.2.4. 연속형 자료의 분포</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.2.4.1. 히스토그램</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4.2.4.2. 상자그림</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.2.4.3. 산점도</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4.2.5. 참고: 그룹별 분포</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article" role="main">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="id1">
+<h1><span class="section-number">4.2. </span>자료의 분포<a class="headerlink" href="#id1" title="Permalink to this headline">#</a></h1>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 한글 폰트가 깨질 때 사용 - 런타임 메뉴에서 다시 시작 및 모두 실행 선택. (출처: https://teddylee777.github.io/colab/colab-korean)</span>
+<span class="o">!</span>sudo apt-get install -y fonts-nanum
+<span class="o">!</span>sudo fc-cache -fv
+<span class="o">!</span>rm ~/.cache/matplotlib -rf
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;sudo&#39;은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;sudo&#39;은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&#39;rm&#39;은(는) 내부 또는 외부 명령, 실행할 수 있는 프로그램, 또는
+배치 파일이 아닙니다.
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># 그림 그리기를 위한 코드와 한글 실행</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">from</span> <span class="nn">matplotlib</span> <span class="kn">import</span> <span class="n">rc</span>
+<span class="o">%</span><span class="k">matplotlib</span> inline
+
+<span class="n">plt</span><span class="o">.</span><span class="n">rc</span><span class="p">(</span><span class="s1">&#39;font&#39;</span><span class="p">,</span> <span class="n">family</span><span class="o">=</span><span class="s1">&#39;NanumBarunGothic&#39;</span><span class="p">)</span> <span class="c1"># clolab 에서 한글 사용 </span>
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s1">&#39;axes.unicode_minus&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="kc">False</span> 
+<span class="n">plt</span><span class="o">.</span><span class="n">rcParams</span><span class="p">[</span><span class="s2">&quot;figure.figsize&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="p">(</span><span class="mi">8</span><span class="p">,</span><span class="mi">8</span><span class="p">)</span>   <span class="c1"># 그림 크기 조정</span>
+</pre></div>
+</div>
+</div>
+</div>
+<p>이번 시간은 데이터를 분석할 때 자료의 기본적인 특성을 파악하는 일에 대하여 배워보자. 데이터가 가지는 값의 형태와 종류를 파악하고 자료가 전체적으로 어떻게 구성되어 있는지 파악하는 것이 데이터 분석의 첫단계이다.</p>
+<p>자료가 어떤 곳에 얼마나 집중되어 있는지, 데이터가 퍼진 정도는 얼마나 되는지를 나타내는 것이 <strong>분포(distribution)</strong> 이다. 좋은 분석을 하기 위해서는 데이터의 분포를 잘 이해하는 것이 중요하다. 자료가 집중되고 퍼져있는 특성에 따라서 분석의 방향이 달라질 수 있고 유용한 결과를 얻을 수 있다.</p>
+<section id="id2">
+<h2><span class="section-number">4.2.1. </span>체력측정 자료<a class="headerlink" href="#id2" title="Permalink to this headline">#</a></h2>
+<p>이제 우리는 여러 운동센터에서 측정된 사람들의 체력측정 데이터를 가지고 자료의 분포를 파악하는 방법을 배워보자.</p>
+<p>아래 자료는 전국의 체력인증센터에서 관리하고 있는 국민체력측정데이터의 항목별 측정 자료를 정리한 것이다. 국민체력측정데이터는 국민체육진흥공단에서 실시하는 <a class="reference external" href="https://nfa.kspo.or.kr/front/certify/cer0103_list.do">국민체력100</a>사업으로 얻어진 자료로서 전국의 체력인증센터에 방문한 사람들의 연령, 신장, 체중, 윗몸일으키기, BMI, 등의 체력 측정 항목별 결과를 지닌 자료이다. 체력측정 자료는 <a class="reference external" href="https://www.culture.go.kr/bigdata/user/main.do">문화빅데이터플랫폼</a>에서 받아볼 수 있다.</p>
+<p>체력측정데이터를 데이터프레임 <code class="docutils literal notranslate"><span class="pre">physical_data</span></code> 로 불러오자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url</span> <span class="o">=</span> <span class="s2">&quot;https://ilovedata.github.io/teaching/bigdata2/data/physical_test_2018_data.csv&quot;</span>
+<span class="n">physical_data</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8-sig&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>CENTER_NM</th>
+      <th>CERT_GBN</th>
+      <th>AGE_GBN</th>
+      <th>TEST_AGE</th>
+      <th>TEST_SEX</th>
+      <th>ITEM_F001</th>
+      <th>ITEM_F002</th>
+      <th>ITEM_F003</th>
+      <th>ITEM_F004</th>
+      <th>ITEM_F005</th>
+      <th>ITEM_F006</th>
+      <th>ITEM_F007</th>
+      <th>ITEM_F008</th>
+      <th>ITEM_F012</th>
+      <th>ITEM_F018</th>
+      <th>ITEM_F019</th>
+      <th>ITEM_F022</th>
+      <th>ITEM_F028</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>연제</td>
+      <td>참가증</td>
+      <td>성인</td>
+      <td>33</td>
+      <td>M</td>
+      <td>159.2</td>
+      <td>57.2</td>
+      <td>30.3</td>
+      <td>77.0</td>
+      <td>60.0</td>
+      <td>101.0</td>
+      <td>23.3</td>
+      <td>30.6</td>
+      <td>-6.2</td>
+      <td>22.6</td>
+      <td>27.0</td>
+      <td>186.0</td>
+      <td>53.5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>연제</td>
+      <td>참가증</td>
+      <td>성인</td>
+      <td>48</td>
+      <td>F</td>
+      <td>155.8</td>
+      <td>52.9</td>
+      <td>29.0</td>
+      <td>70.0</td>
+      <td>80.0</td>
+      <td>130.0</td>
+      <td>27.5</td>
+      <td>30.7</td>
+      <td>8.8</td>
+      <td>21.8</td>
+      <td>18.0</td>
+      <td>149.0</td>
+      <td>58.0</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>세종</td>
+      <td>참가증</td>
+      <td>성인</td>
+      <td>22</td>
+      <td>M</td>
+      <td>175.2</td>
+      <td>96.2</td>
+      <td>32.8</td>
+      <td>109.4</td>
+      <td>85.0</td>
+      <td>141.0</td>
+      <td>48.9</td>
+      <td>52.3</td>
+      <td>-2.8</td>
+      <td>31.3</td>
+      <td>40.0</td>
+      <td>212.0</td>
+      <td>54.4</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>연제</td>
+      <td>2등급</td>
+      <td>성인</td>
+      <td>29</td>
+      <td>M</td>
+      <td>178.7</td>
+      <td>79.4</td>
+      <td>17.9</td>
+      <td>80.0</td>
+      <td>84.0</td>
+      <td>132.0</td>
+      <td>44.8</td>
+      <td>45.9</td>
+      <td>10.4</td>
+      <td>24.9</td>
+      <td>48.0</td>
+      <td>230.0</td>
+      <td>57.8</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>사하</td>
+      <td>참가증</td>
+      <td>성인</td>
+      <td>31</td>
+      <td>F</td>
+      <td>160.1</td>
+      <td>50.2</td>
+      <td>31.2</td>
+      <td>NaN</td>
+      <td>71.0</td>
+      <td>115.0</td>
+      <td>13.4</td>
+      <td>16.8</td>
+      <td>15.9</td>
+      <td>19.6</td>
+      <td>27.0</td>
+      <td>133.0</td>
+      <td>33.5</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>KSPO광주</td>
+      <td>참가증</td>
+      <td>성인</td>
+      <td>23</td>
+      <td>F</td>
+      <td>157.8</td>
+      <td>60.1</td>
+      <td>42.4</td>
+      <td>72.0</td>
+      <td>63.0</td>
+      <td>103.0</td>
+      <td>19.8</td>
+      <td>22.4</td>
+      <td>24.1</td>
+      <td>24.1</td>
+      <td>4.0</td>
+      <td>NaN</td>
+      <td>37.3</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>영암</td>
+      <td>참가증</td>
+      <td>유소년</td>
+      <td>11</td>
+      <td>M</td>
+      <td>165.5</td>
+      <td>60.3</td>
+      <td>NaN</td>
+      <td>79.0</td>
+      <td>64.0</td>
+      <td>114.0</td>
+      <td>18.6</td>
+      <td>18.7</td>
+      <td>9.5</td>
+      <td>22.0</td>
+      <td>NaN</td>
+      <td>122.0</td>
+      <td>31.0</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>청주</td>
+      <td>참가증</td>
+      <td>성인</td>
+      <td>24</td>
+      <td>M</td>
+      <td>174.9</td>
+      <td>74.5</td>
+      <td>35.7</td>
+      <td>96.1</td>
+      <td>77.0</td>
+      <td>132.0</td>
+      <td>41.5</td>
+      <td>46.5</td>
+      <td>6.7</td>
+      <td>24.4</td>
+      <td>30.0</td>
+      <td>204.0</td>
+      <td>62.4</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>구미</td>
+      <td>참가증</td>
+      <td>청소년</td>
+      <td>18</td>
+      <td>M</td>
+      <td>181.0</td>
+      <td>71.3</td>
+      <td>19.1</td>
+      <td>NaN</td>
+      <td>79.0</td>
+      <td>117.0</td>
+      <td>45.5</td>
+      <td>41.5</td>
+      <td>6.9</td>
+      <td>21.8</td>
+      <td>NaN</td>
+      <td>NaN</td>
+      <td>63.8</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>춘천</td>
+      <td>참가증</td>
+      <td>성인</td>
+      <td>41</td>
+      <td>F</td>
+      <td>160.6</td>
+      <td>72.7</td>
+      <td>38.9</td>
+      <td>96.8</td>
+      <td>80.0</td>
+      <td>110.0</td>
+      <td>29.7</td>
+      <td>29.9</td>
+      <td>7.5</td>
+      <td>28.2</td>
+      <td>15.0</td>
+      <td>135.0</td>
+      <td>41.1</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<p>체력측정 데이터는 2021년 8월에 얻어진 자료로서 1874 명의 사람들의 자료로 구성되어 있으며 18개의 컬럼으로 구성된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="o">.</span><span class="n">shape</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>(1874, 18)
+</pre></div>
+</div>
+</div>
+</div>
+<p>위에서 받은 국민체력측정데이터의 각 컬럼에 대한 설명도 다음과 같이 데이터프레임 <code class="docutils literal notranslate"><span class="pre">phisical_name</span></code> 으로 불러오자. 데이터프레임 <code class="docutils literal notranslate"><span class="pre">phisical_name</span></code> 은 위에서 얻은 국민체력 자료의 각 컬럼의 이름에 대한 설명이다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">url2</span> <span class="o">=</span> <span class="s2">&quot;https://ilovedata.github.io/teaching/bigdata2/data/physical_test_2018_names.csv&quot;</span>
+<span class="n">physical_names</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">url2</span><span class="p">,</span> <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;,&#39;</span><span class="p">,</span> <span class="n">encoding</span> <span class="o">=</span> <span class="s1">&#39;utf-8-sig&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_names</span><span class="o">.</span><span class="n">head</span><span class="p">(</span><span class="mi">15</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>컬럼영문명</th>
+      <th>컬럼한글명</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>TEST_CNT</td>
+      <td>측정 회차</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>CENTER_NM</td>
+      <td>센터명</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>AGE_GBN</td>
+      <td>나이구분</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>TEST_GBN</td>
+      <td>측정구분</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>TEST_AGE</td>
+      <td>측정나이</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>INPUT_GBN</td>
+      <td>입력구분</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>CERT_GBN</td>
+      <td>상장구분</td>
+    </tr>
+    <tr>
+      <th>7</th>
+      <td>TEST_YMD</td>
+      <td>측정일</td>
+    </tr>
+    <tr>
+      <th>8</th>
+      <td>TEST_SEX</td>
+      <td>측정회원성별</td>
+    </tr>
+    <tr>
+      <th>9</th>
+      <td>ITEM_F001</td>
+      <td>측정항목값 : 신장 : cm</td>
+    </tr>
+    <tr>
+      <th>10</th>
+      <td>ITEM_F002</td>
+      <td>측정항목값 : 체중 : kg</td>
+    </tr>
+    <tr>
+      <th>11</th>
+      <td>ITEM_F003</td>
+      <td>측정항목값 : 체지방율 : %</td>
+    </tr>
+    <tr>
+      <th>12</th>
+      <td>ITEM_F004</td>
+      <td>측정항목값 : 허리둘레 : cm</td>
+    </tr>
+    <tr>
+      <th>13</th>
+      <td>ITEM_F005</td>
+      <td>측정항목값 : 이완기혈압(최저) : mmHg</td>
+    </tr>
+    <tr>
+      <th>14</th>
+      <td>ITEM_F006</td>
+      <td>측정항목값 : 수축기혈압(최고) : mmHg</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="id3">
+<h2><span class="section-number">4.2.2. </span>자료의 종류<a class="headerlink" href="#id3" title="Permalink to this headline">#</a></h2>
+<p>우리가 다루는 자료는 데이터가 지닌 값의 특성에 따라서 보통 <strong>범주형 변수(categorical data)</strong> 와 <strong>연속형 변수(continuous variable)</strong> 로 구분한다.</p>
+<p>범주형변수의 특성은 다음과 같다.</p>
+<ul class="simple">
+<li><p>가질 수 있는 값의 정해진 항목들 중의 하나이다 (예를 들어서 성별, 지역 등)</p></li>
+<li><p>자료의 값을 입력할 때 항목별로 정해진 문자나 숫자로 입력한다</p></li>
+<li><p>예를 들어 남자는 1 또는 <code class="docutils literal notranslate"><span class="pre">M</span></code>, 여자는 0 또는 <code class="docutils literal notranslate"><span class="pre">F</span></code> 등으로 자료에 나타난다.</p></li>
+<li><p>범주형 자료는 숫자로 입력되어 있어도 실제 숫자가 아니라 항목을 나타내는 것이다.</p></li>
+</ul>
+<p>연속형 변수는 말 그대로 숫자로 표시되는 데이터를 말한다. 숫자는 일어난 횟수처럼 정수이가나 또는 몸무게처럼 실수로 표시된다.</p>
+<p>연령과 같은 자료는 실제로 많은 정수로 표시되어 있다. 그럼 연령은 범주형 자료인가 아니면 연속형 자료인가? 이러한 질문은 분석의 목적에 따라서 달라질 수 있다. 연령을 시간의 개념으로 보고 분석을 할 떄는 연속형 변수로 볼 수 있다. 또한 연령별로 특정한 분석이 필요한 경우 범주형으로 볼 수 있다.</p>
+<p>즉, 우리가 다루는 데이터는 많은 경우 범주형과 연속형으로 구별할  수 있지만 같은 데이터가 범주형과 연속형의 특성을 모두 가진 경우도 있다.</p>
+<p>데이터에서 자료의 형식은 다음과 같이<code class="docutils literal notranslate"><span class="pre">dtypes</span></code> 메소드로 파악할 수 있다.</p>
+<p>자료를 처음 데이터프레임으로 입력하면 숫자는 형태에 따라서 숫자의 형식 <code class="docutils literal notranslate"><span class="pre">int</span></code> 나 <code class="docutils literal notranslate"><span class="pre">float64</span></code> 으로 저장되며 문자는 <code class="docutils literal notranslate"><span class="pre">object</span></code> 로 인식된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CENTER_NM     object
+CERT_GBN      object
+AGE_GBN       object
+TEST_AGE       int64
+TEST_SEX      object
+ITEM_F001    float64
+ITEM_F002    float64
+ITEM_F003    float64
+ITEM_F004    float64
+ITEM_F005    float64
+ITEM_F006    float64
+ITEM_F007    float64
+ITEM_F008    float64
+ITEM_F012    float64
+ITEM_F018    float64
+ITEM_F019    float64
+ITEM_F022    float64
+ITEM_F028    float64
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+<p>범주형 자료는 데이터프레임에서 자료 형식을 <strong><code class="docutils literal notranslate"><span class="pre">categorical</span></code></strong> 로 만들어 주는 것이 좋다.</p>
+<p>범주형 자료만 아래와 같이 선택하여 메소드 <code class="docutils literal notranslate"><span class="pre">.astype(&quot;category&quot;)</span></code> 를 적용하고 다시 데이터프레임에 저장한다.</p>
+<p>범주형 자료는 데이터프레임의 범주형 형식 <strong><code class="docutils literal notranslate"><span class="pre">categorical</span></code></strong> 으로  지정을 해야 범주형 자료에 적용되는 다양한 메소드들을 적절하게 이용할 수 있다. 또한 숫자로 표시된 범주형 자료가 연속형 자료로 인식되어 예상하지 못한 결과가 나오는 것을 피할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s2">&quot;CENTER_NM&quot;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">physical_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s2">&quot;CENTER_NM&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+<span class="n">physical_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s2">&quot;CERT_GBN&quot;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">physical_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;CERT_GBN&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+<span class="n">physical_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s2">&quot;AGE_GBN&quot;</span><span class="p">]</span>  <span class="o">=</span> <span class="n">physical_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;AGE_GBN&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+<span class="n">physical_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span><span class="s2">&quot;TEST_SEX&quot;</span> <span class="p">]</span>  <span class="o">=</span> <span class="n">physical_data</span><span class="o">.</span><span class="n">loc</span><span class="p">[:,</span> <span class="s2">&quot;TEST_SEX&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">astype</span><span class="p">(</span><span class="s2">&quot;category&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="p">[[</span><span class="s2">&quot;CENTER_NM&quot;</span><span class="p">,</span><span class="s2">&quot;CERT_GBN&quot;</span><span class="p">,</span><span class="s2">&quot;AGE_GBN&quot;</span><span class="p">,</span><span class="s2">&quot;TEST_SEX&quot;</span> <span class="p">]]</span><span class="o">.</span><span class="n">dtypes</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>CENTER_NM    category
+CERT_GBN     category
+AGE_GBN      category
+TEST_SEX     category
+dtype: object
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="id4">
+<h2><span class="section-number">4.2.3. </span>범주형자료의 분포<a class="headerlink" href="#id4" title="Permalink to this headline">#</a></h2>
+<p>이제 체력측정 데이터에서 남자와 여자의 비율은 얼마나 될까?</p>
+<p>다음과 같은 성별을 나타내는 변수 <code class="docutils literal notranslate"><span class="pre">TEST_SEX</span></code>에 남,여의 숫자를 알아보자. 컬럼을 선택하고 메소드  <code class="docutils literal notranslate"><span class="pre">value_counts()</span></code> 를 적용한다. 범주형 변수의 항목별 숫자를 돗수(frequncy)라고 하며 다음의 결과를 돗수 분포표(frequency table)라고 말한다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="p">[</span><span class="s2">&quot;TEST_SEX&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>M    1081
+F     793
+Name: TEST_SEX, dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<p>이제 돗수 분포표에서 구한 남여의 구성 인원수를 파이 차트(pie chart)로 다음과 같이 나타낼 수 있다.</p>
+<p>메소드 <code class="docutils literal notranslate"><span class="pre">plot.pie()</span></code> 를 사용하면 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="p">[</span><span class="s2">&quot;TEST_SEX&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pie</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:ylabel=&#39;TEST_SEX&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/d1489d66f8e341062957e2a2be2c185dc33e3c48946e722de0878a2840cb248a.png" src="../../_images/d1489d66f8e341062957e2a2be2c185dc33e3c48946e722de0878a2840cb248a.png" />
+</div>
+</div>
+<p>돗수 분포표를 구할 때 돗수가 아닌 항목의 비율로 계산하고 싶은 경우가 있다. 이런 경우  <code class="docutils literal notranslate"><span class="pre">value_counts(normalize=True)</span></code> 를 사용하면 된다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="p">[</span><span class="s2">&quot;TEST_SEX&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>M    0.576841
+F    0.423159
+Name: TEST_SEX, dtype: float64
+</pre></div>
+</div>
+</div>
+</div>
+<p>연령대별로 구분한 컬럼 <code class="docutils literal notranslate"><span class="pre">AGE_GBN</span></code> 을 이용하여 연령대별 분포도 살펴보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="p">[</span><span class="s2">&quot;AGE_GBN&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pie</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:ylabel=&#39;AGE_GBN&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/20543af45ead490964c08e9d89d552873dc48044ef0d091bee2138f209779105.png" src="../../_images/20543af45ead490964c08e9d89d552873dc48044ef0d091bee2138f209779105.png" />
+</div>
+</div>
+<p>돗수의 크기를 막대로 표시하는 바차트(bar chart)는 다음과 같이 그린다. 막대기의 크기를 비율로 지정해보자</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="p">[</span><span class="s2">&quot;AGE_GBN&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">(</span><span class="n">normalize</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">bar</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="../../_images/a69a5e971eaf46655d49ae8e068dfdba98b6052c463cf653913feffb98249642.png" src="../../_images/a69a5e971eaf46655d49ae8e068dfdba98b6052c463cf653913feffb98249642.png" />
+</div>
+</div>
+<p>두 개의 범주형 변수를 고려하고 각 항목들의 조합에 대한 분포표가 분할표(contingency table) 이다. 성별과 연령대별 분할표는 다음과 같이 구할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="p">[</span> <span class="p">[</span><span class="s2">&quot;TEST_SEX&quot;</span><span class="p">,</span> <span class="s2">&quot;AGE_GBN&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TEST_SEX  AGE_GBN
+M         성인         865
+F         성인         632
+M         청소년        145
+F         노인          88
+          청소년         66
+M         노인          55
+          유소년         16
+F         유소년          7
+dtype: int64
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="p">[</span> <span class="p">[</span><span class="s2">&quot;TEST_SEX&quot;</span><span class="p">,</span> <span class="s2">&quot;AGE_GBN&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">pie</span><span class="p">(</span><span class="n">legend</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:ylabel=&#39;None&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/f558cdb0ebe13041b0783dedd9fff3261713099ff14ad71ff2df6db41515b307.png" src="../../_images/f558cdb0ebe13041b0783dedd9fff3261713099ff14ad71ff2df6db41515b307.png" />
+</div>
+</div>
+</section>
+<section id="id5">
+<h2><span class="section-number">4.2.4. </span>연속형 자료의 분포<a class="headerlink" href="#id5" title="Permalink to this headline">#</a></h2>
+<section id="id6">
+<h3><span class="section-number">4.2.4.1. </span>히스토그램<a class="headerlink" href="#id6" title="Permalink to this headline">#</a></h3>
+<p>이제 체력측정 자료에서 나타나는 여러 변수를 이용하여 연속형 자료의 분포에 대하여 알아보는 방법에 대해 살펴보자.</p>
+<p>먼저 사람들이 가장 관심이 많은 몸무게(‘ITEM_F002`)의 분포에 대하여 알아보자.</p>
+<p>먼저 히스토그램은 전체 자료를 구간으로 나누어 구간에 속한 자료의 돗수를 그림으로 나타낸다. 메소드 <code class="docutils literal notranslate"><span class="pre">plot.hist()</span></code> 를 적용하며 사용할 열이름을 <code class="docutils literal notranslate"><span class="pre">y='ITEM_F002'</span></code> 로 지정해 준다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;ITEM_F002&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:ylabel=&#39;Frequency&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/19309aaa022436b0d5d6cae54f3e06472e5de3c5ec05fbec6f900c3deb897f57.png" src="../../_images/19309aaa022436b0d5d6cae54f3e06472e5de3c5ec05fbec6f900c3deb897f57.png" />
+</div>
+</div>
+<p>히스토그램의 구간의 개수는  <code class="docutils literal notranslate"><span class="pre">bins=</span></code> 선택문으로 바꿀 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;ITEM_F002&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:ylabel=&#39;Frequency&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/53d50cea1db8f9dea99ea6b90dbf613cdae9005948b084d753d5cda8d7306e82.png" src="../../_images/53d50cea1db8f9dea99ea6b90dbf613cdae9005948b084d753d5cda8d7306e82.png" />
+</div>
+</div>
+<p>신장(키)의 분포도 알아보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">hist</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;ITEM_F001&#39;</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="mi">25</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:ylabel=&#39;Frequency&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/735f81d3e9bbfb59d5b4598ae7906aa2183f667c280016650f46009d539154c2.png" src="../../_images/735f81d3e9bbfb59d5b4598ae7906aa2183f667c280016650f46009d539154c2.png" />
+</div>
+</div>
+<p>위의 그림에서 보있듯이 몸무게의 분포는 오른쪽으로 치우친 경향이 나타난다. 자료가 가장 집중된 중심의 위치에서 좌우 대칭으로 나타나지 않고 몸무게가 큰 방향으로 약간 치우쳐있다.</p>
+<p>키의 분포는 중심에서 죄우로 대칭인 모양으로 나타난다.</p>
+<p>일반적으로 몸무게와 키는 중심에서 좌, 우로 거의 대칭인 분포를 가진다. 위에서 우리가 다룬 자료는 우리나라 사람 전체를 대표하는 자료가 아니다. 이 자료는 체력인증센터를 방문하는 사람들만으로 구성된 자료이다. 따라서 체력인증센터를 방문하는 사람들이 특정한 경향을 가지고 있다면 자료의 분포는 우리나라 사람 전체의 분포와 다를 수 있다.</p>
+<ul class="simple">
+<li><p>체력인증센터를 방문하는 사람들이 전체 사람들과 다른 특성이 있다면 무었일까?</p></li>
+</ul>
+<p>데이터를 수집하고 분석할 때 자료가 가지고 있는 특성을 파악하는 것은 매우 중요하다. <strong>자료가 전체 집단을 대표할 수 있도록 수집된 자료인지</strong>, 또는 어떤 특정한 경향이나 성질을 가진 개체들의 자료인지 파악하는 것이 중요하며 이는 데이터 분석에서 얻은 결론을 일반화하여 적용하는데 큰 영향을 미친다.</p>
+</section>
+<section id="id7">
+<h3><span class="section-number">4.2.4.2. </span>상자그림<a class="headerlink" href="#id7" title="Permalink to this headline">#</a></h3>
+<p>자료의 분포를 파악하는데 가장 유용하고 단순함 그림은 <strong>상자그림(box plot)</strong> 이다.</p>
+<p>일단 자료를 순서대로 정렬해 놓았을 때 자료의 중심과 퍼진 정도를 나타내는 중요한 통계량은 다음과 같다.</p>
+<ul class="simple">
+<li><p>자료의 위치</p>
+<ul>
+<li><p><strong>1사분위수</strong> (25%백분위수, Q1): 자료를 순서대로 정렬했을 때 아래에서 25%에 있는 수</p></li>
+<li><p><strong>중앙값</strong> (median, Q2): 자료를 순서대로 중앙에 있는 수</p></li>
+<li><p><strong>3사분위수</strong> (75%백분위수, Q3): 자료를 순서대로 정렬했을 때 아래에서 75%에 있는 수</p></li>
+</ul>
+</li>
+<li><p>자료의 퍼진 정도</p>
+<ul>
+<li><p><strong>IQR</strong> (Inter Quantile Range): IQR= Q3-Q1</p></li>
+</ul>
+</li>
+</ul>
+<p>IQR 은 중심 부근에 위치하는 전체 자료의 50%의 범위를 나타내는 측도로서 자료의 퍼진 정도를 나타내는 대표적인 측도이다.</p>
+<p>상자그림은 자료를 순서대로 정렬했을 때 25% 와 75% 의 위치에 있는 자료를 각각 상자의 아래면과 윗면으로 그려주고 중앙값(mdedian, 50%)을 상자 안에 표시해준다.</p>
+<p>또한 자료가 작은 쪽과 큰 쪽으로 퍼진 정도를 상자에서 나온 선으로 표시해준다. 자료의 퍼진 정도를 나타내는 선의 위치는 상자의 끝에서 (1.5)IQR에 있는 곳을 나타낸다.</p>
+<ul class="simple">
+<li><p>위 선 끝점: Q3 + (1.5)IQR</p></li>
+<li><p>상자 위  : 75% 백분위수 (3사분위수, Q3)</p></li>
+<li><p>상자 중앙: 중앙값(median)</p></li>
+<li><p>상자 아래: 25% 백분위수 (1사분위수, Q1)</p></li>
+<li><p>아래 선 끝점: Q1 - (1.5)IQR</p></li>
+</ul>
+<p>또한 자료의 중심에서 매우 먼 자료들, 즉 (1.5)IQR 을 벗어난 자료는 점으로 표시해 준다.</p>
+<p>체려측정자료에서 몸무게를 상자 그림으로 그려보면 몸무게의 값이 큰 방향으로 치우친 경향을 더 확실하게 볼 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="s1">&#39;ITEM_F002&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:&gt;
+</pre></div>
+</div>
+<img alt="../../_images/661b64407f6a8753d115656196b3922dfe9c733152e9597bfed82a565d3ce9c4.png" src="../../_images/661b64407f6a8753d115656196b3922dfe9c733152e9597bfed82a565d3ce9c4.png" />
+</div>
+</div>
+<p>그럼 몸무게와 키에 대한 상자그림을 나란히 그려보자. 두 개의 그림을 각각 좌우로 그릴 경우 <code class="docutils literal notranslate"><span class="pre">subplots=True</span></code> 선택문을 사용한다.</p>
+<p>몸무게와 키의 상자그림을 비교하면 몸무게는 비대칭인 분포이고, 반면 키는 거의 대칭인 분포를 보이고 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">box</span><span class="p">(</span><span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="s1">&#39;ITEM_F001&#39;</span><span class="p">,</span> <span class="s1">&#39;ITEM_F002&#39;</span><span class="p">],</span> <span class="n">subplots</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ITEM_F001       AxesSubplot(0.125,0.125;0.352273x0.755)
+ITEM_F002    AxesSubplot(0.547727,0.125;0.352273x0.755)
+dtype: object
+</pre></div>
+</div>
+<img alt="../../_images/32e42210171f9bd02d3a712e64999f34b08f3bbe05dd84fec434133cf7fa51e9.png" src="../../_images/32e42210171f9bd02d3a712e64999f34b08f3bbe05dd84fec434133cf7fa51e9.png" />
+</div>
+</div>
+</section>
+<section id="id8">
+<h3><span class="section-number">4.2.4.3. </span>산점도<a class="headerlink" href="#id8" title="Permalink to this headline">#</a></h3>
+<p>마지막으로 키와 몸무게의 관계는 어떨까?</p>
+<p>두 연속형 변수의 값들을 2차원 평면에 나타내는 그림을 산점도(scatter plot)이라고 한다. 산점도는 메소드 <code class="docutils literal notranslate"><span class="pre">plot.scatter(x=,</span> <span class="pre">y=)</span></code>으로 그릴 수 있다.</p>
+<p>산점도에서 점들의 투명도는 <code class="docutils literal notranslate"><span class="pre">alpha=0.5</span></code> 로 저정할 수 있다.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;ITEM_F001&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span> <span class="s1">&#39;ITEM_F002&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;ITEM_F001&#39;, ylabel=&#39;ITEM_F002&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/7c31db848fb8460f62cb6597ac5d3b91964632f991fe2e89317f8682790259f7.png" src="../../_images/7c31db848fb8460f62cb6597ac5d3b91964632f991fe2e89317f8682790259f7.png" />
+</div>
+</div>
+<p>키와 몸무게의 관계를 성별로 구분하여 그려보자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">physical_data</span><span class="o">.</span><span class="n">groupby</span><span class="p">([</span><span class="s1">&#39;TEST_SEX&#39;</span><span class="p">])</span><span class="o">.</span><span class="n">plot</span><span class="o">.</span><span class="n">scatter</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s1">&#39;ITEM_F001&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span> <span class="s1">&#39;ITEM_F002&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>TEST_SEX
+F    AxesSubplot(0.125,0.125;0.775x0.755)
+M    AxesSubplot(0.125,0.125;0.775x0.755)
+dtype: object
+</pre></div>
+</div>
+<img alt="../../_images/9a6cd9704b80a148b02a6278f910aa60901e8f24bbe6afc5e74df28662ca50e1.png" src="../../_images/9a6cd9704b80a148b02a6278f910aa60901e8f24bbe6afc5e74df28662ca50e1.png" />
+<img alt="../../_images/637f81a958d13c7f9d7c05f92d057c3f8436dbabc46b66ae5226b751ffce84ad.png" src="../../_images/637f81a958d13c7f9d7c05f92d057c3f8436dbabc46b66ae5226b751ffce84ad.png" />
+</div>
+</div>
+<p>참고로 정교한 그림을 그리는데 사용할 수 있는 라이브러리 중 <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> 라이브러리는 <code class="docutils literal notranslate"><span class="pre">R</span></code>의 <code class="docutils literal notranslate"><span class="pre">ggplot2</span></code> 와 같은 예쁜 그림을 그려준다.</p>
+<p>다음은 <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> 라이브러리를 <code class="docutils literal notranslate"><span class="pre">sns</span></code> 로 입력하고 산점도를 그리는 예이다. <code class="docutils literal notranslate"><span class="pre">seaborn</span></code> 라이브러리의 자세하 사용법은 라이브러리 <a class="reference external" href="https://seaborn.pydata.org/index.html">매뉴얼</a>을 참조하자.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">seaborn</span> <span class="k">as</span> <span class="nn">sns</span>
+
+<span class="n">sns</span><span class="o">.</span><span class="n">scatterplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">physical_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;ITEM_F001&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span> <span class="s1">&#39;ITEM_F002&#39;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s1">&#39;TEST_SEX&#39;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;AxesSubplot:xlabel=&#39;ITEM_F001&#39;, ylabel=&#39;ITEM_F002&#39;&gt;
+</pre></div>
+</div>
+<img alt="../../_images/bc5e6dc07f6d67ec0e3ca4b60bc71bc0075a34680f37088114784acc916af09e.png" src="../../_images/bc5e6dc07f6d67ec0e3ca4b60bc71bc0075a34680f37088114784acc916af09e.png" />
+</div>
+</div>
+</section>
+</section>
+<section id="id9">
+<h2><span class="section-number">4.2.5. </span>참고: 그룹별 분포<a class="headerlink" href="#id9" title="Permalink to this headline">#</a></h2>
+<p>아래 그림들은 <code class="docutils literal notranslate"><span class="pre">pandas</span></code> 라이브러리의 <code class="docutils literal notranslate"><span class="pre">plot</span></code> 메소드로 그리기 힘든 그룹별로 분포에 대한 그림을 그리는 방법이다.</p>
+<p>seaborn 라이브러리의 특별한 함수를 이용하며 정확한 코드는 강의의 범위에 벗어나지만 분포의 비교에 대한 설명을 하기 위하여 파이썬 코드와 결과를 수록했다.</p>
+<p>연령집단의 분포를 성별로 그린 바차트</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">physical_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;AGE_GBN&quot;</span><span class="p">,</span>  <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;TEST_SEX&quot;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;count&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x27114799970&gt;
+</pre></div>
+</div>
+<img alt="../../_images/7b13a7a168af9ed2ac7fa4e427296cc992d4729a9c5044a4e1fe0fbae18f1ab3.png" src="../../_images/7b13a7a168af9ed2ac7fa4e427296cc992d4729a9c5044a4e1fe0fbae18f1ab3.png" />
+</div>
+</div>
+<p>성별로 몸무게의 분포를 비교하는 히스토그램</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">displot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">physical_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;ITEM_F002&quot;</span><span class="p">,</span> <span class="n">hue</span><span class="o">=</span><span class="s2">&quot;TEST_SEX&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x2711489aa00&gt;
+</pre></div>
+</div>
+<img alt="../../_images/81502c0c234fd0453ac142c3a199551b039ce891bf65d66a2dfb4dd2928f59a4.png" src="../../_images/81502c0c234fd0453ac142c3a199551b039ce891bf65d66a2dfb4dd2928f59a4.png" />
+</div>
+</div>
+<p>성별로 몸무게의 분포를 비교하는 상자그림</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">sns</span><span class="o">.</span><span class="n">catplot</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">physical_data</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s1">&#39;TEST_SEX&#39;</span><span class="p">,</span><span class="n">y</span><span class="o">=</span> <span class="s1">&#39;ITEM_F002&#39;</span><span class="p">,</span> <span class="n">kind</span><span class="o">=</span><span class="s2">&quot;box&quot;</span> <span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>&lt;seaborn.axisgrid.FacetGrid at 0x271148bf6a0&gt;
+</pre></div>
+</div>
+<img alt="../../_images/2e48568d21291f375213e83c8581f0dd0f4fae0903c7e612c8a1fb35688b2d8c.png" src="../../_images/2e48568d21291f375213e83c8581f0dd0f4fae0903c7e612c8a1fb35688b2d8c.png" />
+</div>
+</div>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "binder-examples/jupyter-stacks-datascience",
+            ref: "master",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./chapters\05"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+                <footer class="bd-footer-article">
+                  
+<div class="footer-article-items footer-article__inner">
+  
+    <div class="footer-article-item"><!-- Previous / next buttons -->
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="data-intro.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title"><span class="section-number">4.1. </span>분포와 확률</p>
+      </div>
+    </a>
+    <a class="right-next"
+       href="data_probability.html"
+       title="next page">
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">next</p>
+        <p class="prev-next-title"><span class="section-number">4.3. </span>확률의 기초</p>
+      </div>
+      <i class="fa-solid fa-angle-right"></i>
+    </a>
+</div></div>
+  
+</div>
+
+                </footer>
+              
+            </div>
+            
+            
+              
+                <div class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+  <div class="sidebar-secondary-item">
+  <div class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav class="bd-toc-nav page-toc">
+    <ul class="visible nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id2">4.2.1. 체력측정 자료</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id3">4.2.2. 자료의 종류</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id4">4.2.3. 범주형자료의 분포</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id5">4.2.4. 연속형 자료의 분포</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id6">4.2.4.1. 히스토그램</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id7">4.2.4.2. 상자그림</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#id8">4.2.4.3. 산점도</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#id9">4.2.5. 참고: 그룹별 분포</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By 서울대학교
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  <p class="copyright">
+    
+      © Copyright 2022.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script src="../../_static/scripts/bootstrap.js?digest=e353d410970836974a52"></script>
+<script src="../../_static/scripts/pydata-sphinx-theme.js?digest=e353d410970836974a52"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

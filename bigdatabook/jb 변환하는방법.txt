@@ -1,0 +1,19 @@
+1. anaconda prompt 켜기
+
+2. jupyter book을 설치하기 
+- 명령어 : pip install jupyter-book
+
+3. cd를 이용하여 만들고자 하는 디렉토리 폴더로 이동하기 
+  - 예시 ) cd Desktop/databook  ; 바탕화면의 Desktop과 databook으로 이동
+4. jupyter-book create databook : databook이라는 폴더를 만들어서 여기 안에 jupyter-book을 만들겠다.
+  - 저의 경우에는 databook 폴더가 있어서 create를 하지 않아도됨(직접 폴더만들어서 해도 ㅚㅂ니다)
+5. jupyter-book build ./  명령어 실행
+- 잘 생성되었다면 config.yml과 _build 파일이 만들어지고 html파일로 jupyter book이 생성됩니다
+
+6. pip install pyppeteer 실행하기
+
+7. jb build ./ --builder pdfhtml  : jupyter-book 또는 jb라고 해도 상관없음
+- 위 의미는 html파일과 pdf파일을 생성해준다는 것이다.
+- latex 파일을 만들고 싶다면 : jb build ./ --builder latex  
+  * 그러나, latex 변환하는 도중에 error는 확인해야함
+- 다른 종류로는  '--builder': 'latex,' is not one of 'html', 'dirhtml', 'singlehtml', 'pdfhtml', 'latex', 'pdflatex', 'linkcheck', 'custom'. 이런것이 있다고 합니다.
